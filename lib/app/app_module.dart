@@ -22,6 +22,6 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute(Modular.initialRoute, module: LoginModule()),
     ModuleRoute('/home', module: HomeModule()),
-    ModuleRoute('/items', module: ItemsModule())
+    ModuleRoute('/items', module: ItemsModule()),
   ];
 }

@@ -5,6 +5,7 @@ class ItemsModel {
   double valor;
   int prioridade;
   bool jaTem;
+  int quantidade;
   DocumentReference reference;
 
   ItemsModel({
@@ -12,6 +13,7 @@ class ItemsModel {
     this.valor,
     this.prioridade,
     this.jaTem,
+    this.quantidade,
     this.reference,
   });
 
@@ -21,6 +23,7 @@ class ItemsModel {
       valor: doc['valor'],
       prioridade: doc['prioridade'],
       jaTem: doc['jaTem'],
+      quantidade: doc['quantidade'],
       reference: doc.reference,
     );
   }
@@ -30,7 +33,8 @@ class ItemsModel {
         nome: json['nome'],
         valor: json['valor'],
         prioridade: json['prioridade'],
-        jaTem: json['jaTem']);
+        jaTem: json['jaTem'],
+        quantidade: json['quantidade']);
   }
 
   Map<String, dynamic> toJson() => {};

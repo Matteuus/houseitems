@@ -16,9 +16,13 @@ class ItemsRepository extends Disposable implements IitemsRepository {
 
   @override
   Stream<List<ItemsModel>> get(String comodoReference) {
-    final comodo = firestore.collection('comodo').doc(comodoReference);
-    return comodo.collection('items').snapshots().map((query) =>
-        query.docs.map((doc) => ItemsModel.fromDocument(doc)).toList());
+    return firestore
+        .collection('comodo')
+        .doc(comodoReference)
+        .collection('items')
+        .snapshots()
+        .map((query) =>
+            query.docs.map((doc) => ItemsModel.fromDocument(doc)).toList());
   }
 
   @override
@@ -45,6 +49,7 @@ class ItemsRepository extends Disposable implements IitemsRepository {
         'valor': model.valor,
         'prioridade': model.prioridade,
         'jaTem': model.jaTem,
+        'quantidade': model.quantidade
       });
     } else {
       model.reference.update({
@@ -52,6 +57,7 @@ class ItemsRepository extends Disposable implements IitemsRepository {
         'valor': model.valor,
         'prioridade': model.prioridade,
         'jaTem': model.jaTem,
+        'quantidade': model.quantidade
       });
     }
   }

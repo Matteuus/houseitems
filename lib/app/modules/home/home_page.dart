@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:houseitems/app/modules/home/models/comodo.dart';
 import 'package:houseitems/app/modules/items/items_page.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import 'home_store.dart';
 
@@ -20,6 +23,14 @@ class _HomePageState extends ModularState<HomePage, HomeStore> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Comodos'),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.popAndPushNamed(context, '/');
+              },
+              icon: Icon(Icons.exit_to_app))
+        ],
       ),
       body: Observer(
         builder: (context) {
@@ -92,11 +103,21 @@ dialogExcluir(BuildContext context, ComodoModel comodo, HomeStore store) {
               onPressed: () {
                 store.delete(comodo);
                 Navigator.of(context).pop();
+                snackShow(
+                    context, 'Comodo ${comodo.nome} excluido com sucesso');
               },
             ),
           ],
         );
       });
+}
+
+snackShow(BuildContext context, String mensagem) {
+  showTopSnackBar(context, CustomSnackBar.success(message: mensagem));
+}
+
+snackShowError(BuildContext context, String mensagem) {
+  showTopSnackBar(context, CustomSnackBar.error(message: mensagem));
 }
 
 dialogAddComodo(BuildContext context, HomeStore store) {
@@ -119,7 +140,10 @@ dialogAddComodo(BuildContext context, HomeStore store) {
               color: Colors.white,
               child: Column(
                 children: [
-                  Text("Adicionar Comodo"),
+                  Text(
+                    "Adicionar comodo",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(
                     height: 16,
                   ),
@@ -155,6 +179,11 @@ dialogAddComodo(BuildContext context, HomeStore store) {
                             store.saveComodo(
                                 ComodoModel(nome: _comodoController.text));
                             Navigator.pop(context);
+                            snackShow(context,
+                                'Comodo ${_comodoController.text} criado com sucesso');
+                          } else {
+                            snackShowError(
+                                context, 'Preencha o campo corretamente');
                           }
                         },
                         child: Text(
