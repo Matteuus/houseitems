@@ -6,6 +6,9 @@ class ItemsModel {
   int prioridade;
   bool jaTem;
   int quantidade;
+  String cardColor;
+  String textColor;
+  bool escolherCorTexto;
   DocumentReference reference;
 
   ItemsModel({
@@ -14,6 +17,9 @@ class ItemsModel {
     this.prioridade,
     this.jaTem,
     this.quantidade,
+    this.cardColor,
+    this.textColor,
+    this.escolherCorTexto,
     this.reference,
   });
 
@@ -24,6 +30,9 @@ class ItemsModel {
       prioridade: doc['prioridade'],
       jaTem: doc['jaTem'],
       quantidade: doc['quantidade'],
+      cardColor: doc['cardColor'],
+      textColor: doc['textColor'],
+      escolherCorTexto: doc['escolherCorTexto'],
       reference: doc.reference,
     );
   }
@@ -34,6 +43,9 @@ class ItemsModel {
         valor: json['valor'],
         prioridade: json['prioridade'],
         jaTem: json['jaTem'],
+        cardColor: json['cardColor'],
+        textColor: json['textColor'],
+        escolherCorTexto: json['escolherCorTexto'],
         quantidade: json['quantidade']);
   }
 

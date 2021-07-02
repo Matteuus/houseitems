@@ -24,8 +24,45 @@ mixin _$ItemsStore on _ItemsStoreBase, Store {
     });
   }
 
+  final _$filtrosAtom = Atom(name: '_ItemsStoreBase.filtros');
+
+  @override
+  List<String> get filtros {
+    _$filtrosAtom.reportRead();
+    return super.filtros;
+  }
+
+  @override
+  set filtros(List<String> value) {
+    _$filtrosAtom.reportWrite(value, super.filtros, () {
+      super.filtros = value;
+    });
+  }
+
   final _$_ItemsStoreBaseActionController =
       ActionController(name: '_ItemsStoreBase');
+
+  @override
+  dynamic addFiltro(String filtro) {
+    final _$actionInfo = _$_ItemsStoreBaseActionController.startAction(
+        name: '_ItemsStoreBase.addFiltro');
+    try {
+      return super.addFiltro(filtro);
+    } finally {
+      _$_ItemsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic removeFiltro(String filtro) {
+    final _$actionInfo = _$_ItemsStoreBaseActionController.startAction(
+        name: '_ItemsStoreBase.removeFiltro');
+    try {
+      return super.removeFiltro(filtro);
+    } finally {
+      _$_ItemsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic getItemsList(String comodoReference) {
@@ -63,7 +100,8 @@ mixin _$ItemsStore on _ItemsStoreBase, Store {
   @override
   String toString() {
     return '''
-itemsList: ${itemsList}
+itemsList: ${itemsList},
+filtros: ${filtros}
     ''';
   }
 }

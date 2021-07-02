@@ -8,6 +8,9 @@ import 'package:houseitems/app/modules/login/login_module.dart';
 
 import 'modules/home/home_module.dart';
 import 'modules/items/items_module.dart';
+import 'modules/login/login_store.dart';
+import 'modules/login/repositories/usuario_repository.dart';
+import 'modules/login/services/usuario_services.dart';
 
 class AppModule extends Module {
   @override
@@ -16,6 +19,10 @@ class AppModule extends Module {
     Bind.lazySingleton(
         (i) => ItemsRepository(firestore: FirebaseFirestore.instance)),
     Bind.lazySingleton((i) => ItemsStore(itemsService: i.get())),
+    Bind.lazySingleton((i) => UsuarioService(usuarioRepository: i.get())),
+    Bind.lazySingleton(
+        (i) => UsuarioRepository(firestore: FirebaseFirestore.instance)),
+    Bind.lazySingleton((i) => UsuarioStore(usuarioService: i.get())),
   ];
 
   @override

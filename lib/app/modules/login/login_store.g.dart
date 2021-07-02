@@ -24,8 +24,34 @@ mixin _$UsuarioStore on UsuarioStoreBase, Store {
     });
   }
 
+  final _$themeColorAtom = Atom(name: 'UsuarioStoreBase.themeColor');
+
+  @override
+  String get themeColor {
+    _$themeColorAtom.reportRead();
+    return super.themeColor;
+  }
+
+  @override
+  set themeColor(String value) {
+    _$themeColorAtom.reportWrite(value, super.themeColor, () {
+      super.themeColor = value;
+    });
+  }
+
   final _$UsuarioStoreBaseActionController =
       ActionController(name: 'UsuarioStoreBase');
+
+  @override
+  dynamic changeColor(String newColor) {
+    final _$actionInfo = _$UsuarioStoreBaseActionController.startAction(
+        name: 'UsuarioStoreBase.changeColor');
+    try {
+      return super.changeColor(newColor);
+    } finally {
+      _$UsuarioStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic login(String username, String password) {
@@ -63,7 +89,8 @@ mixin _$UsuarioStore on UsuarioStoreBase, Store {
   @override
   String toString() {
     return '''
-usuario: ${usuario}
+usuario: ${usuario},
+themeColor: ${themeColor}
     ''';
   }
 }

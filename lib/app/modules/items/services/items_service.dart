@@ -19,8 +19,12 @@ class ItemsService extends Disposable implements IitemsService {
   }
 
   @override
-  Stream<List<ItemsModel>> get(String comodoReference) {
-    return itemsRepository.get(comodoReference);
+  Stream<List<ItemsModel>> get(String comodoReference, {List<String> filtros}) {
+    if (filtros != null && filtros.isNotEmpty) {
+      return itemsRepository.get(comodoReference, filtros: filtros);
+    } else {
+      return itemsRepository.get(comodoReference);
+    }
   }
 
   @override

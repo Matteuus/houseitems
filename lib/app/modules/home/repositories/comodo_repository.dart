@@ -35,10 +35,14 @@ class ComodoRepository extends Disposable implements IComodoRepository {
       model.reference =
           await FirebaseFirestore.instance.collection('comodo').add({
         'nome': model.nome,
+        'cardColor': model.cardColor,
+        'textColor': model.textColor,
       });
     } else {
       model.reference.update({
         'nome': model.nome,
+        'cardColor': model.cardColor,
+        'textColor': model.textColor,
       });
     }
   }

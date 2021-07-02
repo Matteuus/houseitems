@@ -15,6 +15,14 @@ abstract class UsuarioStoreBase with Store {
   @observable
   UsuarioModel usuario;
 
+  @observable
+  String themeColor;
+
+  @action
+  changeColor(String newColor) {
+    themeColor = newColor;
+  }
+
   UsuarioStoreBase({this.usuarioService});
 
   @action

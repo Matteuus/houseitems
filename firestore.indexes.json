@@ -1,4 +1,16 @@
 {
-  "indexes": [],
+  "indexes": [{
+    "collectionId": "items",
+    "fields": [
+      {
+        "fieldPath": "prioridade",
+        "mode": "DESCENDING"
+      },
+      {
+        "fieldPath": "valor",
+        "mode": "DESCENDING"
+      }
+]
+}],
   "fieldOverrides": []
 }

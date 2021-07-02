@@ -15,14 +15,40 @@ class ItemsRepository extends Disposable implements IitemsRepository {
   void dispose() {}
 
   @override
-  Stream<List<ItemsModel>> get(String comodoReference) {
-    return firestore
-        .collection('comodo')
-        .doc(comodoReference)
-        .collection('items')
-        .snapshots()
-        .map((query) =>
-            query.docs.map((doc) => ItemsModel.fromDocument(doc)).toList());
+  Stream<List<ItemsModel>> get(String comodoReference, {List<String> filtros}) {
+    if (filtros != null && filtros.isNotEmpty) {
+      if (filtros.length < 2) {
+        return firestore
+            .collection('comodo')
+            .doc(comodoReference)
+            .collection('items')
+            .orderBy(filtros[0].isNotEmpty ? filtros[0] : '', descending: true)
+            .snapshots()
+            .map((query) =>
+                query.docs.map((doc) => ItemsModel.fromDocument(doc)).toList());
+      } else {
+        return firestore
+            .collection('comodo')
+            .doc(comodoReference)
+            .collection('items')
+            .orderBy(filtros[0].isNotEmpty ? filtros[0] : '', descending: true)
+            .orderBy(filtros[1].isNotEmpty ? filtros[1] : '', descending: true)
+            .snapshots()
+            .map((query) =>
+                query.docs.map((doc) => ItemsModel.fromDocument(doc)).toList())
+            .handleError((error) {
+          print(error);
+        });
+      }
+    } else {
+      return firestore
+          .collection('comodo')
+          .doc(comodoReference)
+          .collection('items')
+          .snapshots()
+          .map((query) =>
+              query.docs.map((doc) => ItemsModel.fromDocument(doc)).toList());
+    }
   }
 
   @override
@@ -49,6 +75,9 @@ class ItemsRepository extends Disposable implements IitemsRepository {
         'valor': model.valor,
         'prioridade': model.prioridade,
         'jaTem': model.jaTem,
+        'cardColor': model.cardColor,
+        'textColor': model.textColor,
+        'escolherCorTexto': model.escolherCorTexto,
         'quantidade': model.quantidade
       });
     } else {
@@ -57,6 +86,9 @@ class ItemsRepository extends Disposable implements IitemsRepository {
         'valor': model.valor,
         'prioridade': model.prioridade,
         'jaTem': model.jaTem,
+        'cardColor': model.cardColor,
+        'textColor': model.textColor,
+        'escolherCorTexto': model.escolherCorTexto,
         'quantidade': model.quantidade
       });
     }

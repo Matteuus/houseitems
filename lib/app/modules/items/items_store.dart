@@ -11,11 +11,29 @@ abstract class _ItemsStoreBase with Store {
   @observable
   ObservableStream<List<ItemsModel>> itemsList;
 
+  @observable
+  List<String> filtros = [];
+
   _ItemsStoreBase({this.itemsService});
 
   @action
+  addFiltro(String filtro) {
+    filtros.add(filtro);
+  }
+
+  @action
+  removeFiltro(String filtro) {
+    filtros.removeWhere((element) => element == filtro);
+  }
+
+  @action
   getItemsList(String comodoReference) {
-    itemsList = itemsService.get(comodoReference).asObservable();
+    if (filtros != null && filtros.isNotEmpty) {
+      itemsList =
+          itemsService.get(comodoReference, filtros: filtros).asObservable();
+    } else {
+      itemsList = itemsService.get(comodoReference).asObservable();
+    }
   }
 
   @action
