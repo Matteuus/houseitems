@@ -31,9 +31,6 @@ class _LoginPageState extends ModularState<LoginPage, UsuarioStore> {
         Navigator.popAndPushNamed(context, '/home');
       }
     });
-    //para quando for testar
-    // _usuarioController.text = 'mano.mateus2012@gmail.com';
-    // _senhaController.text = '08051997';
     getTheme().then((value) => store.themeColor = value);
   }
 
